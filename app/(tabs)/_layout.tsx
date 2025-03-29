@@ -7,12 +7,15 @@ import { IconSymbol } from '@/components/ui/IconSymbol';
 import TabBarBackground from '@/components/ui/TabBarBackground';
 import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
+import { CartProvider } from './Context/CartContext';
+
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
 
   return (
-    <Tabs
+    <CartProvider>
+      <Tabs
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
         headerShown: false,
@@ -41,5 +44,7 @@ export default function TabLayout() {
         }}
       />
     </Tabs>
+    </CartProvider>
+    
   );
 }

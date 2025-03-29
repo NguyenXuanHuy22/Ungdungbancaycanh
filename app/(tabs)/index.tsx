@@ -1,74 +1,124 @@
-import { Image, StyleSheet, Platform } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Image, ImageBackground, StyleSheet, Alert } from 'react-native';
+import React, { useState } from 'react';
+import { useRouter } from 'expo-router';
 
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
+const apiUrl = "http://192.168.1.131:3000/users"; // Thay URL API đúng với backend
 
-export default function HomeScreen() {
+const validateEmail = (email: string) => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+};
+
+const RegisterScreen: React.FC = () => {
+  const router = useRouter();
+  const [name, setName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [phone, setPhone] = useState<string>("");
+
+  // Đăng ký tài khoản
+  const handleRegister = async () => {
+    if (!name || !email || !password || !phone) {
+      Alert.alert("Lỗi", "Vui lòng nhập đầy đủ thông tin!");
+      return;
+    }
+  
+    if (!validateEmail(email)) {
+      Alert.alert("Lỗi", "Email không hợp lệ!");
+      return;
+    }
+  
+    try {
+      const response = await fetch(apiUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, password, phone }),
+      });
+  
+      const text = await response.text(); // Lấy dữ liệu trả về dưới dạng text
+  
+      try {
+        const result = JSON.parse(text); // Thử chuyển đổi sang JSON
+        if (response.ok) {
+          Alert.alert("Thành công", "Đăng ký thành công!", [
+            { text: "OK", onPress: () => router.push('/explore') },
+          ]);
+        } else {
+          Alert.alert("Lỗi", result.message || "Đăng ký thất bại, vui lòng thử lại!");
+        }
+      } catch (jsonError) {
+        console.error("Lỗi parse JSON:", jsonError);
+        console.error("Phản hồi từ server:", text);
+        Alert.alert("Lỗi", "Phản hồi từ server không đúng định dạng JSON!");
+      }
+  
+    } catch (error) {
+      Alert.alert("Lỗi", "Không thể kết nối đến máy chủ!");
+      console.error("Lỗi đăng ký:", error);
+    }
+  };
+  
+
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12'
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          Tap the Explore tab to learn more about what's included in this starter app.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          When you're ready, run{' '}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+    <ImageBackground 
+      source={{ uri: 'https://i.pinimg.com/736x/f5/d1/af/f5d1af51f4ac4cf35a739d42bc3d4e19.jpg' }}
+      style={{ flex: 1, justifyContent: 'center' }}
+      resizeMode="cover"
+    >
+      <View style={{ flex: 1, justifyContent: 'center', padding: 20 }}>
+        <Text style={{ fontSize: 24, fontWeight: 'bold', textAlign: 'center' }}>Đăng ký</Text>
+        <Text style={{ fontSize: 16, textAlign: 'center', color: 'gray', marginBottom: 20 }}>Tạo tài khoản</Text>
+
+        <TextInput style={styles.input} placeholder="Họ tên" value={name} onChangeText={setName} />
+        <TextInput style={styles.input} placeholder="Email" value={email} onChangeText={setEmail} keyboardType="email-address" />
+        <TextInput style={styles.input} placeholder="Số điện thoại" value={phone} onChangeText={setPhone} keyboardType="phone-pad" />
+        <TextInput style={styles.input} placeholder="Mật khẩu" secureTextEntry value={password} onChangeText={setPassword} />
+
+        <TouchableOpacity style={styles.loginButton} onPress={handleRegister}>
+          <Text style={{ color: 'white', fontSize: 18, fontWeight: 'bold' }}>Đăng ký</Text>
+        </TouchableOpacity>
+
+        <Text style={{ textAlign: 'center', marginVertical: 10 }}>Hoặc</Text>
+
+        <View style={{ flexDirection: 'row', justifyContent: 'center', gap: 10 }}>
+          <TouchableOpacity>
+            <Image source={{ uri: 'https://i.pinimg.com/474x/5b/b0/f7/5bb0f73a7b3e0f976acad614a42e5040.jpg' }} style={styles.icon} />
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <Image source={{ uri: 'https://i.pinimg.com/474x/60/41/99/604199df880fb029291ddd7c382e828b.jpg' }} style={styles.icon} />
+          </TouchableOpacity>
+        </View>
+
+        <TouchableOpacity onPress={() => router.push('/explore')} style={{ marginTop: 20 }}>
+          <Text style={{ textAlign: 'center' }}>
+            Tôi đã có tài khoản. <Text style={{ color: 'blue', fontWeight: 'bold' }}>Đăng nhập</Text>
+          </Text>
+        </TouchableOpacity>
+      </View>
+    </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
+  input: {
+    height: 50,
+    borderWidth: 1,
+    borderColor: '#ddd',
+    borderRadius: 10,
+    paddingHorizontal: 15,
+    backgroundColor: '#fff',
+    marginBottom: 15,
+  },
+  loginButton: {
+    backgroundColor: 'green',
+    padding: 15,
+    borderRadius: 10,
     alignItems: 'center',
-    gap: 8,
   },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
+  icon: {
+    width: 40,
+    height: 40,
   },
 });
+
+export default RegisterScreen;

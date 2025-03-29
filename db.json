@@ -1,0 +1,269 @@
+{
+  "products": [
+    {
+      "id": "1",
+      "name": "cây kim ngân",
+      "price": "120000",
+      "size": "nhỏ",
+      "origin": "việt nam",
+      "stock": "123",
+      "image": "https://i.pinimg.com/474x/1b/94/e2/1b94e2b1b028825741000e24363695c4.jpg"
+    },
+    {
+      "id": "2",
+      "name": "cây xương rồng",
+      "price": "120000",
+      "size": "nhỏ",
+      "origin": "việt nam",
+      "stock": "103",
+      "image": "https://i.pinimg.com/474x/1b/94/e2/1b94e2b1b028825741000e24363695c4.jpg"
+    },
+    {
+      "id": "3",
+      "name": "cây sen đá",
+      "price": "145000",
+      "size": "nhỏ",
+      "origin": "việt nam",
+      "stock": "100",
+      "image": "https://i.pinimg.com/474x/79/ba/70/79ba707732de608751ef345050b413ee.jpg"
+    },
+    {
+      "id": "4",
+      "name": "cây kim ngân",
+      "price": "120000",
+      "size": "nhỏ",
+      "origin": "việt nam",
+      "stock": "113",
+      "image": "https://i.pinimg.com/474x/1b/94/e2/1b94e2b1b028825741000e24363695c4.jpg"
+    },
+    {
+      "id": "5",
+      "name": "cây kim ngân",
+      "price": "120000",
+      "size": "nhỏ",
+      "origin": "việt nam",
+      "stock": "10",
+      "image": "https://i.pinimg.com/474x/1b/94/e2/1b94e2b1b028825741000e24363695c4.jpg"
+    },
+    {
+      "id": "6",
+      "name": "cây kim ngân",
+      "price": "120000",
+      "size": "nhỏ",
+      "origin": "việt nam",
+      "stock": "123",
+      "image": "https://i.pinimg.com/474x/1b/94/e2/1b94e2b1b028825741000e24363695c4.jpg"
+    },
+    {
+      "id": "7",
+      "name": "cây kim ngân",
+      "price": "120000",
+      "size": "nhỏ",
+      "origin": "việt nam",
+      "stock": "123",
+      "image": "https://i.pinimg.com/474x/1b/94/e2/1b94e2b1b028825741000e24363695c4.jpg"
+    },
+    {
+      "id": "8",
+      "name": "cây kim ngân",
+      "price": "120000",
+      "size": "nhỏ",
+      "origin": "việt nam",
+      "stock": "123",
+      "image": "https://i.pinimg.com/474x/1b/94/e2/1b94e2b1b028825741000e24363695c4.jpg"
+    },
+    {
+      "id": "9",
+      "name": "cây kim ngân",
+      "price": "120000",
+      "size": "nhỏ",
+      "origin": "việt nam",
+      "stock": "13",
+      "image": "https://i.pinimg.com/474x/1b/94/e2/1b94e2b1b028825741000e24363695c4.jpg"
+    },
+    {
+      "id": "10",
+      "name": "cây kim ngân",
+      "price": "120000",
+      "size": "nhỏ",
+      "origin": "việt nam",
+      "stock": "12",
+      "image": "https://i.pinimg.com/474x/1b/94/e2/1b94e2b1b028825741000e24363695c4.jpg"
+    }
+  ],
+  "users": [
+    {
+      "id": "1",
+      "name": "Nguyễn Xuân Huy",
+      "phone": "0987654321",
+      "password": "123"
+    },
+    {
+      "id": "b806",
+      "name": "Hiy",
+      "email": "nguyenxuanhuy221005@gmail.com",
+      "password": "Huy",
+      "phone": "0975830708"
+    }
+  ],
+  "cart": [
+    {
+      "id": "623d",
+      "productId": "2",
+      "name": "cây xương rồng",
+      "price": "120000",
+      "image": "https://i.pinimg.com/474x/1b/94/e2/1b94e2b1b028825741000e24363695c4.jpg",
+      "quantity": 1
+    },
+    {
+      "id": "6d04",
+      "productId": "3",
+      "name": "cây sen đá",
+      "price": "145000",
+      "image": "https://i.pinimg.com/474x/79/ba/70/79ba707732de608751ef345050b413ee.jpg",
+      "quantity": 1
+    },
+    {
+      "id": "b971",
+      "productId": "5",
+      "name": "cây kim ngân",
+      "price": "120000",
+      "image": "https://i.pinimg.com/474x/1b/94/e2/1b94e2b1b028825741000e24363695c4.jpg",
+      "quantity": 1
+    }
+  ],
+  "orders": [
+    {
+      "id": "1743218481254",
+      "date": "29/3/2025",
+      "status": "Đặt hàng thành công",
+      "statusColor": "green",
+      "products": [
+        {
+          "id": "623d",
+          "productId": "2",
+          "name": "cây xương rồng",
+          "price": "120000",
+          "image": "https://i.pinimg.com/474x/1b/94/e2/1b94e2b1b028825741000e24363695c4.jpg",
+          "quantity": 1
+        }
+      ],
+      "customer": {
+        "name": "H",
+        "email": "H",
+        "address": "H",
+        "phone": "0975830708"
+      },
+      "shippingMethod": {
+        "type": "cod",
+        "fee": 50000,
+        "estimate": "4-6 ngày"
+      },
+      "paymentMethod": "visa",
+      "total": 170000
+    },
+    {
+      "id": "1743220192467",
+      "date": "29/3/2025",
+      "status": "Đặt hàng thành công",
+      "statusColor": "green",
+      "products": [
+        {
+          "id": "b971",
+          "productId": "5",
+          "name": "cây kim ngân",
+          "price": "120000",
+          "image": "https://i.pinimg.com/474x/1b/94/e2/1b94e2b1b028825741000e24363695c4.jpg",
+          "quantity": 1
+        }
+      ],
+      "customer": {
+        "name": "H",
+        "email": "nguyenxuanhuy221005@gmail.com",
+        "address": "Hn",
+        "phone": "0975830708"
+      },
+      "shippingMethod": {
+        "type": "express",
+        "fee": 15000,
+        "estimate": "5-7 ngày"
+      },
+      "paymentMethod": "visa",
+      "total": 135000
+    },
+    {
+      "id": "1743220484716",
+      "date": "29/3/2025",
+      "status": "Đặt hàng thành công",
+      "statusColor": "green",
+      "products": [
+        {
+          "id": "623d",
+          "productId": "2",
+          "name": "cây xương rồng",
+          "price": "120000",
+          "image": "https://i.pinimg.com/474x/1b/94/e2/1b94e2b1b028825741000e24363695c4.jpg",
+          "quantity": 1
+        },
+        {
+          "id": "6d04",
+          "productId": "3",
+          "name": "cây sen đá",
+          "price": "145000",
+          "image": "https://i.pinimg.com/474x/79/ba/70/79ba707732de608751ef345050b413ee.jpg",
+          "quantity": 1
+        },
+        {
+          "id": "b971",
+          "productId": "5",
+          "name": "cây kim ngân",
+          "price": "120000",
+          "image": "https://i.pinimg.com/474x/1b/94/e2/1b94e2b1b028825741000e24363695c4.jpg",
+          "quantity": 1
+        }
+      ],
+      "customer": {
+        "name": "H",
+        "email": "nguyenxuanhuy221005@gmail.com",
+        "address": "Huy",
+        "phone": "0975830708"
+      },
+      "shippingMethod": {
+        "type": "express",
+        "fee": 15000,
+        "estimate": "5-7 ngày"
+      },
+      "paymentMethod": "visa",
+      "total": 400000
+    },
+    {
+      "id": "1743220547798",
+      "date": "29/3/2025",
+      "status": "Đặt hàng thành công",
+      "statusColor": "green",
+      "products": [
+        {
+          "id": "623d",
+          "productId": "2",
+          "name": "cây xương rồng",
+          "price": "120000",
+          "image": "https://i.pinimg.com/474x/1b/94/e2/1b94e2b1b028825741000e24363695c4.jpg",
+          "quantity": 1
+        }
+      ],
+      "customer": {
+        "name": "H",
+        "email": "nguyenxuanhuy221005@gmail.com",
+        "address": "Huy",
+        "phone": "0975830708"
+      },
+      "shippingMethod": {
+        "type": "express",
+        "fee": 15000,
+        "estimate": "5-7 ngày"
+      },
+      "paymentMethod": "visa",
+      "total": 135000
+    }
+  ]
+}
