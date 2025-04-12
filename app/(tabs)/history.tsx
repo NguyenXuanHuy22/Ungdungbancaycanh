@@ -13,6 +13,8 @@ import {
 import axios from "axios";
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
+import { useNavigation } from 'expo-router';
+import { useLayoutEffect } from 'react';
 
 type ProductItem = {
   id: string;
@@ -32,6 +34,15 @@ type OrderItem = {
 };
 
 const OrderHistoryScreen = () => {
+
+  const navigation = useNavigation();
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      tabBarStyle: { display: 'none' },
+    });
+  }, [navigation]);
+  
   const router = useRouter();
   const [orders, setOrders] = useState<OrderItem[]>([]);
   const [refreshing, setRefreshing] = useState(false);
@@ -39,7 +50,7 @@ const OrderHistoryScreen = () => {
   // Hàm lấy danh sách đơn hàng
   const fetchOrders = async () => {
     try {
-      const response = await axios.get("http://192.168.1.131:3000/orders");
+      const response = await axios.get("http://10.24.31.23:3000/orders");
       console.log("Order Data:", response.data);
 
       if (Array.isArray(response.data)) {

@@ -82,51 +82,46 @@
       "image": "https://i.pinimg.com/474x/1b/94/e2/1b94e2b1b028825741000e24363695c4.jpg"
     },
     {
-      "id": "10",
-      "name": "cây kim ngân",
-      "price": "120000",
+      "name": "cây kim ",
+      "price": 120000,
       "size": "nhỏ",
       "origin": "việt nam",
       "stock": "12",
-      "image": "https://i.pinimg.com/474x/1b/94/e2/1b94e2b1b028825741000e24363695c4.jpg"
+      "image": "https://i.pinimg.com/474x/1b/94/e2/1b94e2b1b028825741000e24363695c4.jpg",
+      "id": "10"
+    },
+    {
+      "id": "5951",
+      "name": "Cây chuối ",
+      "price": 20000,
+      "size": "To",
+      "origin": "Vn",
+      "stock": "200",
+      "image": "https://i.pinimg.com/474x/9a/19/04/9a1904dc7d134be07ddfb4fcc00681ab.jpg"
     }
   ],
   "users": [
     {
-      "id": "1",
-      "name": "Nguyễn Xuân Huy",
-      "phone": "0987654321",
-      "password": "123"
-    },
-    {
       "id": "b806",
-      "name": "Hiy",
+      "name": "Huyy",
       "email": "nguyenxuanhuy221005@gmail.com",
-      "password": "Huy",
-      "phone": "0975830708"
+      "phone": "0975830708",
+      "address": "Hnn",
+      "avatar": "file:///data/user/0/host.exp.exponent/cache/ExperienceData/%2540anonymous%252FASM-c6b213cd-5079-4514-a833-5d3cc735d251/ImagePicker/c4fd34af-48ee-41de-a029-d1ee6eb49aea.jpeg"
     }
   ],
   "cart": [
     {
-      "id": "623d",
-      "productId": "2",
+      "id": "fc4e",
+      "productId": null,
+      "name": "Cây chuối ta",
+      "price": 20000,
+      "image": "https://i.pinimg.com/474x/00/5a/26/005a261d07a6315694237937c1f8439d.jpg",
+      "quantity": 1
+    },
+    {
+      "id": "2",
       "name": "cây xương rồng",
-      "price": "120000",
-      "image": "https://i.pinimg.com/474x/1b/94/e2/1b94e2b1b028825741000e24363695c4.jpg",
-      "quantity": 1
-    },
-    {
-      "id": "6d04",
-      "productId": "3",
-      "name": "cây sen đá",
-      "price": "145000",
-      "image": "https://i.pinimg.com/474x/79/ba/70/79ba707732de608751ef345050b413ee.jpg",
-      "quantity": 1
-    },
-    {
-      "id": "b971",
-      "productId": "5",
-      "name": "cây kim ngân",
       "price": "120000",
       "image": "https://i.pinimg.com/474x/1b/94/e2/1b94e2b1b028825741000e24363695c4.jpg",
       "quantity": 1
@@ -134,15 +129,43 @@
   ],
   "orders": [
     {
-      "id": "1743218481254",
-      "date": "29/3/2025",
+      "id": "1744435599613",
+      "date": "12/4/2025",
       "status": "Đặt hàng thành công",
       "statusColor": "green",
       "products": [
         {
-          "id": "623d",
-          "productId": "2",
-          "name": "cây xương rồng",
+          "id": "fc4e",
+          "productId": "7b36",
+          "name": "Cây chuối ta",
+          "price": 20000,
+          "image": "https://i.pinimg.com/474x/00/5a/26/005a261d07a6315694237937c1f8439d.jpg",
+          "quantity": 1
+        }
+      ],
+      "customer": {
+        "name": "Huy",
+        "email": "nguyenxuanhuy221005@gmail.com",
+        "address": "Hn",
+        "phone": "975830708"
+      },
+      "shippingMethod": {
+        "type": "express",
+        "fee": 15000,
+        "estimate": "5-7 ngày"
+      },
+      "paymentMethod": "atm",
+      "total": 35000
+    },
+    {
+      "id": "1744435835650",
+      "date": "12/4/2025",
+      "status": "Đặt hàng thành công",
+      "statusColor": "green",
+      "products": [
+        {
+          "id": "1",
+          "name": "cây kim ngân",
           "price": "120000",
           "image": "https://i.pinimg.com/474x/1b/94/e2/1b94e2b1b028825741000e24363695c4.jpg",
           "quantity": 1
@@ -150,120 +173,96 @@
       ],
       "customer": {
         "name": "H",
-        "email": "H",
-        "address": "H",
-        "phone": "0975830708"
+        "email": "nguyenxuanhuy221005@gmail.com",
+        "address": "Hcm",
+        "phone": "975830708"
+      },
+      "shippingMethod": {
+        "type": "express",
+        "fee": 15000,
+        "estimate": "5-7 ngày"
+      },
+      "paymentMethod": "atm",
+      "total": 135000
+    },
+    {
+      "id": "1744436225761",
+      "date": "12/4/2025",
+      "status": "Đặt hàng thành công",
+      "statusColor": "green",
+      "products": [
+        {
+          "id": "fc4e",
+          "productId": "7b36",
+          "name": "Cây chuối ta",
+          "price": 20000,
+          "image": "https://i.pinimg.com/474x/00/5a/26/005a261d07a6315694237937c1f8439d.jpg",
+          "quantity": 1
+        },
+        {
+          "id": "2",
+          "name": "cây xương rồng",
+          "price": "120000",
+          "image": "https://i.pinimg.com/474x/1b/94/e2/1b94e2b1b028825741000e24363695c4.jpg",
+          "quantity": 2
+        },
+        {
+          "id": "1",
+          "name": "cây kim ngân",
+          "price": "120000",
+          "image": "https://i.pinimg.com/474x/1b/94/e2/1b94e2b1b028825741000e24363695c4.jpg",
+          "quantity": 2
+        }
+      ],
+      "customer": {
+        "name": "Nam",
+        "email": "Nam123@gmail.com",
+        "address": "Tb",
+        "phone": "09583070"
       },
       "shippingMethod": {
         "type": "cod",
         "fee": 50000,
         "estimate": "4-6 ngày"
       },
-      "paymentMethod": "visa",
-      "total": 170000
+      "paymentMethod": "atm",
+      "total": 550000
     },
     {
-      "id": "1743220192467",
-      "date": "29/3/2025",
+      "id": "1744439342826",
+      "date": "12/4/2025",
       "status": "Đặt hàng thành công",
       "statusColor": "green",
       "products": [
         {
-          "id": "b971",
-          "productId": "5",
-          "name": "cây kim ngân",
+          "id": "fc4e",
+          "productId": "7b36",
+          "name": "Cây chuối ta",
+          "price": 20000,
+          "image": "https://i.pinimg.com/474x/00/5a/26/005a261d07a6315694237937c1f8439d.jpg",
+          "quantity": 1
+        },
+        {
+          "id": "2",
+          "name": "cây xương rồng",
           "price": "120000",
           "image": "https://i.pinimg.com/474x/1b/94/e2/1b94e2b1b028825741000e24363695c4.jpg",
           "quantity": 1
         }
       ],
       "customer": {
-        "name": "H",
+        "name": "Nam",
         "email": "nguyenxuanhuy221005@gmail.com",
         "address": "Hn",
-        "phone": "0975830708"
+        "phone": "975830708"
       },
       "shippingMethod": {
-        "type": "express",
-        "fee": 15000,
-        "estimate": "5-7 ngày"
+        "type": "cod",
+        "fee": 50000,
+        "estimate": "4-6 ngày"
       },
-      "paymentMethod": "visa",
-      "total": 135000
-    },
-    {
-      "id": "1743220484716",
-      "date": "29/3/2025",
-      "status": "Đặt hàng thành công",
-      "statusColor": "green",
-      "products": [
-        {
-          "id": "623d",
-          "productId": "2",
-          "name": "cây xương rồng",
-          "price": "120000",
-          "image": "https://i.pinimg.com/474x/1b/94/e2/1b94e2b1b028825741000e24363695c4.jpg",
-          "quantity": 1
-        },
-        {
-          "id": "6d04",
-          "productId": "3",
-          "name": "cây sen đá",
-          "price": "145000",
-          "image": "https://i.pinimg.com/474x/79/ba/70/79ba707732de608751ef345050b413ee.jpg",
-          "quantity": 1
-        },
-        {
-          "id": "b971",
-          "productId": "5",
-          "name": "cây kim ngân",
-          "price": "120000",
-          "image": "https://i.pinimg.com/474x/1b/94/e2/1b94e2b1b028825741000e24363695c4.jpg",
-          "quantity": 1
-        }
-      ],
-      "customer": {
-        "name": "H",
-        "email": "nguyenxuanhuy221005@gmail.com",
-        "address": "Huy",
-        "phone": "0975830708"
-      },
-      "shippingMethod": {
-        "type": "express",
-        "fee": 15000,
-        "estimate": "5-7 ngày"
-      },
-      "paymentMethod": "visa",
-      "total": 400000
-    },
-    {
-      "id": "1743220547798",
-      "date": "29/3/2025",
-      "status": "Đặt hàng thành công",
-      "statusColor": "green",
-      "products": [
-        {
-          "id": "623d",
-          "productId": "2",
-          "name": "cây xương rồng",
-          "price": "120000",
-          "image": "https://i.pinimg.com/474x/1b/94/e2/1b94e2b1b028825741000e24363695c4.jpg",
-          "quantity": 1
-        }
-      ],
-      "customer": {
-        "name": "H",
-        "email": "nguyenxuanhuy221005@gmail.com",
-        "address": "Huy",
-        "phone": "0975830708"
-      },
-      "shippingMethod": {
-        "type": "express",
-        "fee": 15000,
-        "estimate": "5-7 ngày"
-      },
-      "paymentMethod": "visa",
-      "total": 135000
+      "paymentMethod": "atm",
+      "total": 190000
     }
   ]
 }

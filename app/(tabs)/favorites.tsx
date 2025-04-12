@@ -3,6 +3,7 @@ import { View, Text, TextInput, FlatList, Image, TouchableOpacity, StyleSheet } 
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 
+
 const products = [
   { id: '1', name: 'Cây kim ngân', type: 'Hybrid', price: 250000, stock: 156, image: 'https://i.pinimg.com/474x/1b/94/e2/1b94e2b1b028825741000e24363695c4.jpg' },
   { id: '2', name: 'Sen đá', type: 'Indoor', price: 200000, stock: 100, image: 'https://i.pinimg.com/736x/79/ba/70/79ba707732de608751ef345050b413ee.jpg' },
@@ -19,7 +20,7 @@ export default function SearchScreen() {
     <View style={styles.container}>
       {/* Header */}
       <View style={styles.header}>
-        <TouchableOpacity onPress={() => router.back()}>
+        <TouchableOpacity onPress={() => router.push("/home")}>
           <Ionicons name="arrow-back" size={28} color="black" />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>TÌM KIẾM</Text>

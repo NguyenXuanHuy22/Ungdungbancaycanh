@@ -21,7 +21,7 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [cart, setCart] = useState<CartItem[]>([]);
-  const API_URL = "http://192.168.1.131:3000/cart"; // Đổi URL theo server của bạn
+  const API_URL = "http://10.24.31.23:3000/cart"; // Đổi URL theo server của bạn
 
   // 🟢 1. Lấy giỏ hàng từ database khi mở app
   useEffect(() => {

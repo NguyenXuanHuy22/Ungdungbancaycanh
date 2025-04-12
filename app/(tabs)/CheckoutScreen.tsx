@@ -6,24 +6,31 @@ import {
   TouchableOpacity,
   StyleSheet,
   ScrollView,
-  FlatList,
   Image,
   Alert,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter, useLocalSearchParams } from "expo-router";
+import { useNavigation } from 'expo-router';
+import { useLayoutEffect } from 'react';
 
 export default function CheckoutScreen() {
+
+  const navigation = useNavigation();
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      tabBarStyle: { display: 'none' },
+    });
+  }, [navigation]);
   const router = useRouter();
   const params = useLocalSearchParams();
-  const products: { id: string; name: string; image: string; price: number; quantity: number }[] = 
+  const products: { id: string; name: string; image: string; price: number; quantity: number }[] =
     params.selectedProducts ? JSON.parse(params.selectedProducts as string) : [];
-  
-
 
   // Tính tổng tiền sản phẩm
   const subtotal = products.reduce(
-    (sum, item) => sum + item.price * item.quantity,
+    (sum, item) => sum + (item.price || 0) * (item.quantity || 0),
     0
   );
 
@@ -46,14 +53,14 @@ export default function CheckoutScreen() {
   const [paymentMethod, setPaymentMethod] = useState("visa");
 
   // Tổng tiền bao gồm phí vận chuyển
-  const total = subtotal + shippingMethod.fee;
+  const total = subtotal + (shippingMethod.fee || 0);
 
   const handleCheckout = async () => {
     if (!customer.name || !customer.address || !customer.phone) {
       Alert.alert("Lỗi", "Vui lòng nhập đầy đủ thông tin khách hàng.");
       return;
     }
-  
+
     const newOrder = {
       id: Date.now().toString(),
       date: new Date().toLocaleDateString("vi-VN"),
@@ -65,18 +72,18 @@ export default function CheckoutScreen() {
       paymentMethod,
       total,
     };
-  
+
     try {
-      const response = await fetch("http://192.168.1.131:3000/orders", {
+      const response = await fetch("http://10.24.31.23:3000/orders", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newOrder),
       });
-  
+
       if (!response.ok) {
         throw new Error("Không thể lưu đơn hàng");
       }
-  
+
       Alert.alert("Thành công", "Đơn hàng đã được đặt!", [
         { text: "OK", onPress: () => router.push("/(tabs)/history") },
       ]);
@@ -85,13 +92,12 @@ export default function CheckoutScreen() {
       console.error(error);
     }
   };
-  
 
   return (
     <View style={styles.container}>
       {/* Header */}
       <View style={styles.header}>
-        <TouchableOpacity onPress={() => router.push('/(tabs)/cart')}>
+        <TouchableOpacity onPress={() => router.push("/(tabs)/cart")}>
           <Ionicons name="arrow-back" size={28} color="black" />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>THANH TOÁN</Text>
@@ -101,22 +107,21 @@ export default function CheckoutScreen() {
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         {/* Danh sách sản phẩm đã chọn */}
         <Text style={styles.sectionTitle}>Sản phẩm đã chọn</Text>
-        <FlatList
-          data={products}
-          keyExtractor={(item) => item.id}
-          nestedScrollEnabled={true}
-          renderItem={({ item }) => (
-            <View style={styles.productItem}>
+        {products.length > 0 ? (
+          products.map((item) => (
+            <View key={item.id} style={styles.productItem}>
               <Image source={{ uri: item.image }} style={styles.productImage} />
               <View style={styles.productInfo}>
                 <Text style={styles.productName}>{item.name}</Text>
                 <Text style={styles.productPrice}>
-                  {item.price.toLocaleString()}đ x {item.quantity}
+                  {item.price !== undefined ? item.price.toLocaleString("vi-VN") : "0"}đ x {item.quantity}
                 </Text>
               </View>
             </View>
-          )}
-        />
+          ))
+        ) : (
+          <Text style={styles.emptyText}>Không có sản phẩm nào được chọn.</Text>
+        )}
 
         {/* Thông tin khách hàng */}
         <Text style={styles.sectionTitle}>Thông tin khách hàng</Text>
@@ -159,7 +164,6 @@ export default function CheckoutScreen() {
         >
           <Text style={styles.optionText}>Giao hàng Nhanh - 15.000đ</Text>
         </TouchableOpacity>
-
         <TouchableOpacity
           style={[
             styles.option,
@@ -180,26 +184,31 @@ export default function CheckoutScreen() {
         >
           <Text style={styles.optionText}>Thẻ VISA/MASTERCARD</Text>
         </TouchableOpacity>
-
         <TouchableOpacity
           style={[styles.option, paymentMethod === "atm" && styles.selectedOption]}
           onPress={() => setPaymentMethod("atm")}
         >
-          <Text style={styles.optionText}>Thẻ ATM</Text>
+          <Text style={styles.optionText}>Sau khi nhận hàng</Text>
         </TouchableOpacity>
 
         {/* Tổng tiền */}
         <View style={styles.summary}>
           <Text style={styles.summaryText}>Tạm tính</Text>
-          <Text style={styles.summaryAmount}>{subtotal.toLocaleString()}đ</Text>
+          <Text style={styles.summaryAmount}>
+            {subtotal !== undefined ? subtotal.toLocaleString("vi-VN") : "0"}đ
+          </Text>
         </View>
         <View style={styles.summary}>
           <Text style={styles.summaryText}>Phí vận chuyển</Text>
-          <Text style={styles.summaryAmount}>{shippingMethod.fee.toLocaleString()}đ</Text>
+          <Text style={styles.summaryAmount}>
+            {shippingMethod.fee !== undefined ? shippingMethod.fee.toLocaleString("vi-VN") : "0"}đ
+          </Text>
         </View>
         <View style={styles.summary}>
           <Text style={styles.totalText}>Tổng cộng</Text>
-          <Text style={styles.totalAmount}>{total.toLocaleString()}đ</Text>
+          <Text style={styles.totalAmount}>
+            {total !== undefined ? total.toLocaleString("vi-VN") : "0"}đ
+          </Text>
         </View>
 
         {/* Nút "Tiếp tục" */}
@@ -213,8 +222,13 @@ export default function CheckoutScreen() {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: "#fff" },
-  scrollContainer: { padding: 15, paddingBottom: 30 },
-  header: { flexDirection: "row", alignItems: "center", padding: 15, backgroundColor: "#f8f8f8" },
+  scrollContainer: { padding: 15, paddingBottom: 30 }, // Đệm dưới để nút "Thanh toán" không bị che
+  header: {
+    flexDirection: "row",
+    alignItems: "center",
+    padding: 15,
+    backgroundColor: "#f8f8f8",
+  },
   headerTitle: { fontSize: 20, fontWeight: "bold", marginLeft: 10 },
   sectionTitle: { fontSize: 16, fontWeight: "bold", marginTop: 20 },
   productItem: { flexDirection: "row", alignItems: "center", marginTop: 10 },
@@ -222,6 +236,7 @@ const styles = StyleSheet.create({
   productInfo: { flex: 1 },
   productName: { fontSize: 16, fontWeight: "bold" },
   productPrice: { fontSize: 14, color: "#555" },
+  emptyText: { fontSize: 14, color: "#555", marginTop: 10 },
   input: { borderWidth: 1, borderColor: "#ccc", borderRadius: 5, padding: 10, marginTop: 10 },
   option: { borderWidth: 1, borderColor: "#ccc", borderRadius: 5, padding: 15, marginTop: 10 },
   selectedOption: { borderColor: "green", backgroundColor: "#e6f9e6" },
@@ -231,6 +246,12 @@ const styles = StyleSheet.create({
   summaryAmount: { fontSize: 16, fontWeight: "bold", color: "#333" },
   totalText: { fontSize: 18, fontWeight: "bold" },
   totalAmount: { fontSize: 18, fontWeight: "bold", color: "green" },
-  continueButton: { backgroundColor: "green", padding: 15, borderRadius: 10, alignItems: "center", marginTop: 20 },
+  continueButton: {
+    backgroundColor: "green",
+    padding: 15,
+    borderRadius: 10,
+    alignItems: "center",
+    marginTop: 20,
+  },
   continueText: { color: "white", fontSize: 18, fontWeight: "bold" },
 });

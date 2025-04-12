@@ -1,8 +1,10 @@
 import { View, Text, TextInput, TouchableOpacity, Image, ImageBackground, StyleSheet, Alert } from 'react-native';
 import React, { useState } from 'react';
 import { useRouter } from 'expo-router';
+import { useNavigation } from 'expo-router';
+import { useLayoutEffect } from 'react';
 
-const apiUrl = "http://192.168.1.131:3000/users"; // Thay URL API đúng với backend
+const apiUrl = "http://10.24.31.23:3000/users"; // Thay URL API đúng với backend
 
 const validateEmail = (email: string) => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -10,6 +12,14 @@ const validateEmail = (email: string) => {
 };
 
 const RegisterScreen: React.FC = () => {
+
+  const navigation = useNavigation();
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      tabBarStyle: { display: 'none' },
+    });
+  }, [navigation]);
   const router = useRouter();
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");

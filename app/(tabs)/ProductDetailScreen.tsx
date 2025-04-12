@@ -1,8 +1,13 @@
 import { View, Text, Image, TouchableOpacity, StyleSheet, ActivityIndicator, Alert } from "react-native";
-import { useLocalSearchParams, useRouter } from "expo-router";
+import { useFocusEffect, useLocalSearchParams, useRouter } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../redux/store";
+import { addToCart } from "../redux/slices/cartSlice";
 import axios from "axios";
+import { useNavigation } from 'expo-router';
+import { useLayoutEffect } from 'react';
 
 interface Product {
   id: string;
@@ -15,16 +20,36 @@ interface Product {
 }
 
 const ProductDetailScreen: React.FC = () => {
+
+
+  const navigation = useNavigation();
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      tabBarStyle: { display: 'none' },
+    });
+  }, [navigation]);
+  
   const { id } = useLocalSearchParams();
   const router = useRouter();
+  const dispatch = useDispatch<AppDispatch>();
   const [product, setProduct] = useState<Product | null>(null);
   const [quantity, setQuantity] = useState<number>(1);
   const [loading, setLoading] = useState<boolean>(true);
 
+  useFocusEffect(
+    useCallback(() => {
+      setQuantity(1);
+      return () => {
+        setQuantity(1);
+      };
+    }, [])
+  );
+
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await axios.get(`http://192.168.1.131:3000/products/${id}`);
+        const response = await axios.get(`http://10.24.31.23:3000/products/${id}`);
         setProduct(response.data);
       } catch (error) {
         console.error("Lỗi lấy dữ liệu:", error);
@@ -56,27 +81,27 @@ const ProductDetailScreen: React.FC = () => {
 
   const changeQuantity = (type: "increase" | "decrease") => {
     if (type === "increase" && quantity < product.stock) {
-      setQuantity(quantity + 1);
+      setQuantity((prev) => prev + 1);
     } else if (type === "decrease" && quantity > 1) {
-      setQuantity(quantity - 1);
+      setQuantity((prev) => prev - 1);
     }
   };
 
-  // 🟢 Hàm thêm sản phẩm vào giỏ hàng trong database
   const handleAddToCart = async () => {
-    try {
-      const response = await axios.post("http://192.168.1.131:3000/cart", {
-        productId: product.id,
-        name: product.name,
-        price: product.price,
-        image: product.image,
-        quantity: quantity,
-      });
+    if (!product) return;
 
-      if (response.status === 201) {
-        Alert.alert("Thành công", "Sản phẩm đã được thêm vào giỏ hàng!");
-        router.push("/cart");
-      }
+    const cartItem = {
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      image: product.image,
+      quantity: quantity,
+    };
+
+    try {
+      await dispatch(addToCart(cartItem)).unwrap();
+      Alert.alert("Thành công", "Sản phẩm đã được thêm vào giỏ hàng!");
+      router.push("/cart");
     } catch (error) {
       console.error("Lỗi khi thêm vào giỏ hàng:", error);
       Alert.alert("Lỗi", "Không thể thêm sản phẩm vào giỏ hàng.");
@@ -86,18 +111,19 @@ const ProductDetailScreen: React.FC = () => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <TouchableOpacity onPress={() => router.push('/(tabs)/home')}>
+        <TouchableOpacity onPress={() => router.push("/(tabs)/home")}>
           <Ionicons name="arrow-back" size={28} color="black" />
         </TouchableOpacity>
-        <Text style={styles.headerText}>{product.name}</Text>
+        <Text style={styles.headerText}>Chi tiết sản phẩm</Text>
         <TouchableOpacity onPress={() => router.push("/cart")}>
           <Ionicons name="cart-outline" size={28} color="black" />
         </TouchableOpacity>
       </View>
 
       <Image source={{ uri: product.image }} style={styles.productImage} />
+      <Text style={styles.productName}>{product.name}</Text>
+      <Text style={styles.price}>{product.price.toLocaleString("vi-VN")}đ</Text>
 
-      <Text style={styles.price}>{product.price.toLocaleString()}đ</Text>
       <View style={styles.infoRow}>
         <Text style={styles.label}>Kích cỡ:</Text>
         <Text style={styles.value}>{product.size}</Text>
@@ -128,7 +154,7 @@ const ProductDetailScreen: React.FC = () => {
 
       <View style={styles.totalContainer}>
         <Text style={styles.totalLabel}>Tổng tiền:</Text>
-        <Text style={styles.totalPrice}>{(product.price * quantity).toLocaleString()}đ</Text>
+        <Text style={styles.totalPrice}>{(product.price * quantity).toLocaleString("vi-VN")}đ</Text>
       </View>
 
       <TouchableOpacity style={styles.buyButton} onPress={handleAddToCart}>
@@ -144,6 +170,7 @@ const styles = StyleSheet.create({
   headerText: { fontSize: 20, fontWeight: "bold" },
   productImage: { width: "100%", height: 250, borderRadius: 10, marginBottom: 15 },
   price: { fontSize: 24, fontWeight: "bold", color: "green", marginBottom: 10 },
+  productName: { fontSize: 20, fontWeight: "bold", marginBottom: 10 },
   infoRow: { flexDirection: "row", justifyContent: "space-between", marginBottom: 8 },
   label: { fontSize: 16, fontWeight: "bold" },
   value: { fontSize: 16 },
